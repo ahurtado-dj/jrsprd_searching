@@ -1,0 +1,35 @@
+(function ($) {
+
+AjaxSolr.CalendarWidget = AjaxSolr.AbstractFacetWidget.extend({
+  translateDateFormat: function(sourceText,sourceFormat,targetFormat) {
+	return $.datepicker.formatDate(targetFormat, new Date(sourceText)) ; 
+	//return $.datepicker.formatDate(targetFormat,$.datepicker.parseDate(sourceFormat, sourceText ));
+  },
+  afterRequest: function () {
+    var self = this;
+    $(this.target).datepicker('destroy').datepicker({
+      dateFormat: 'yy-mm-dd',
+	  yearRange: "-10:+0",
+	  changeMonth: true,
+	  changeYear: true,
+      defaultDate: new Date(),
+      /*maxDate: $.datepicker.parseDate('yy-mm-dd', this.manager.store.get('facet.date.end').val().substr(0, 10)),
+      minDate: $.datepicker.parseDate('yy-mm-dd', this.manager.store.get('facet.date.start').val().substr(0, 10)),*/
+      nextText: '&gt;',
+      prevText: '&lt;',
+      beforeShowDay: function (date) {
+		// console.log(date);
+        var value = $.datepicker.formatDate('yy-mm-dd', date) + 'T00:00:00Z';
+        var count = self.manager.response.facet_counts.facet_dates[self.field][value];
+        return [ parseInt(count) > 0, '', count + ' documents found!' ];
+      },
+      onSelect: function (dateText, inst) {
+        if (self.add('[' + dateText + 'T00:00:00Z TO ' + dateText + 'T23:59:59Z]')) {
+          self.doRequest();
+        }
+      }
+    });
+  }
+});
+
+})(jQuery);

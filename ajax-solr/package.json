@@ -1,0 +1,25 @@
+{
+  "name": "ajax-solr",
+  "version": "1.0.0",
+  "description": "AJAX Solr is a JavaScript library for creating user interfaces to [Apache Solr][1].",
+  "main": "app.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahurtado-dj/ajax-solr.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahurtado-dj/ajax-solr/issues"
+  },
+  "homepage": "https://github.com/ahurtado-dj/ajax-solr#readme",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
